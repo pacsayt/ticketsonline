@@ -1,0 +1,441 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Pacsay-Maffia/TicketsOnline/1.0.2
+info:
+  description: Buy tickets for the administered events
+  version: 1.0.2
+  title: Simple Inventory API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
+
+# =======================================================================
+
+paths:
+  /eventplace:
+    get:
+      tags: 
+        - eventplace
+      summary: Gets all event places
+      operationId: getAllEventPlaces # This will be the name of the API function
+      description: Gets all event places
+
+      responses:
+        '200':
+          description: Event place found, returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventPlace'
+        '400':
+          description: Bad input parameter
+    post:
+      tags:
+        - eventplace
+      summary: Adds an event place
+      operationId: addEventPlace # This will be the name of the API function
+      description: Adds an event place
+      responses:
+        '201':
+          description: Event place created. iD returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int64
+        '400':
+          description: Invalid input / object invalid
+        '409':
+          description: Event place already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+        description: Event place to add
+
+  /eventplace/{eventPlaceId}:
+    get: # 
+      tags:
+        - eventplace
+      summary: Administer event places
+      operationId: getEventPlacesSpecified # This will be the name of the API function
+      description: Administers (creates, fetches, updates, deletes) event places
+      parameters:
+        - in: path
+          name: eventPlaceId
+          description: Event place id, if omitted, all event places will be returned
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Event place found, returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventPlace'
+        '400':
+          description: Bad input parameter
+    put: # 
+      tags:
+        - eventplace
+      summary: Updates the event place with id specified
+      operationId: modEventPlace # This will be the name of the API function
+      description: Updates the event place with id specified
+      parameters:
+        - in: path
+          name: eventPlaceId
+          description: event place by id will be returned
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Event place updated
+        '400':
+          description: Invalid input / object invalid
+        '409':
+          description: Event place to be updated does not exist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+        description: New content for the event place specified
+    delete:
+      tags:
+        - eventplace
+      summary: Deletes the event place specified
+      operationId: deleteEventPlace # This will be the name of the API function
+      description: Deletes the event place specified
+      parameters:
+          - name: eventPlaceId
+            in : path
+            description: Deletes event place specified
+            required: true
+            schema:
+              type: integer
+              format: int64
+      responses:
+        '200':
+          description: Event place deleted
+        '400':
+          description: Event place with iD specified not found
+        '409':
+          description: Event place to be updated does not exist
+
+# -----------------------------------------------------------------------
+  /event:
+    get:
+      tags: 
+        - event
+      summary: Fetch all events
+      operationId: getAllEvents # This will be the name of the API function
+      description: Fetches all events
+
+      responses:
+        '200':
+          description: Event found, returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          description: Bad input parameter
+    post:
+      tags:
+        - event
+      summary: Adds an event
+      operationId: addEvent # This will be the name of the API function
+      description: Adds an event
+      responses:
+        '201':
+          description: Event created. iD returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int64
+        '400':
+          description: Invalid input / object invalid
+        '409':
+          description: Event already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+        description: Event to add
+
+  /event/{eventId}:
+    get:
+      tags:
+        - event
+      summary: Administer events
+      operationId: getEventsSpecified # This will be the name of the API function
+      description: Administers (creates, fetches, updates, deletes) events
+      parameters:
+        - name: eventId
+          in: path
+          description: Event id, if omitted, all events will be returned
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Event found, returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '400':
+          description: Bad input parameter
+    put:
+      tags:
+        - event
+      summary: Updates the event with id specified
+      operationId: modEvent # This will be the name of the API function
+      description: Updates the event with id specified
+      parameters:
+        - name: eventId
+          in: path
+          description: event id, if omitted, all events will be returned
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Event updated
+        '400':
+          description: Invalid input / object invalid
+        '409':
+          description: Event to be updated does not exist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+        description: New content for the event specified
+    delete:
+      tags:
+        - event
+      summary: Deletes the event specified
+      operationId: deleteEvent # This will be the name of the API function
+      description: Deletes the event specified
+      parameters:
+          - name: eventId
+            in : path
+            description: Deletes event place specified
+            required: true
+            schema:
+              type: integer
+              format: int64
+      responses:
+        '200':
+          description: Event deleted
+        '400':
+          description: 'Event with iD specified not found'
+        '409':
+          description: 'Event to be updated does not exist'
+# -----------------------------------------------------------------------
+  /ticket:
+    get:
+      tags: 
+        - ticket
+      summary: Fetch all tickets
+      operationId: getAllTickets # This will be the name of the API function
+      description: Fetches all tickets
+
+      responses:
+        '200':
+          description: Ticket found, returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticket'
+        '400':
+          description: Bad input parameter
+    post:
+      tags:
+        - ticket
+      summary: Adds a Ticket
+      operationId: addTicket # This will be the name of the API function
+      description: Adds a Ticket
+      responses:
+        '201':
+          description: Ticket created.  iD returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int64
+        '400':
+          description: Invalid input / object invalid
+        '409':
+          description: Ticket already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+        description: Ticket to add
+
+  /ticket/{ticketId}:
+    get:
+      tags:
+        - ticket
+      summary: Administer tickets
+      operationId: getTicketsSpecified # This will be the name of the API function
+      description: Administers (creates, fetches, updates, deletes) tickets
+      parameters:
+        - in: path
+          name: ticketId
+          description: Ticket id, if omitted, all tickets will be returned
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ticket found, returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticket'
+        '400':
+          description: Bad input parameter
+    put:
+      tags:
+        - ticket
+      summary: Updates the ticket with id specified
+      operationId: modTicket # This will be the name of the API function
+      description: Updates the ticket with id specified
+      parameters:
+        - name: ticketId
+          in: path
+          description: ticket id, if omitted, all tickets will be returned
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '201':
+          description: Ticket updated
+        '400':
+          description: Invalid input / object invalid
+        '409':
+          description: Ticket to be updated does not exist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+        description: New content for the ticket specified
+    delete:
+      tags:
+        - ticket
+      summary: Deletes the ticket specified
+      operationId: deleteTicket # This will be the name of the API function
+      description: Deletes the ticket specified
+      parameters:
+          - name: ticketId
+            in : path
+            description: Deletes event place specified
+            required: true
+            schema:
+              type: integer
+              format: int64
+      responses:
+        '200':
+          description: Ticket deleted
+        '400':
+          description: Ticket with iD specified not found
+        '409':
+          description: Ticket to be updated does not exist
+
+# =======================================================================
+components:
+  schemas:
+    EventPlace:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 12
+        name:
+          type: string
+          example: Gesellschaft der Musikfreunde in Wien, Grosser Saal
+        noOfSeats:
+          type: integer
+          format: int32
+          example: 50
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 12
+        name:
+          type: string
+          format: 'password'
+          example: Mozart Ensemble Vienna
+        date:
+          type: string
+          format: 'date-time'
+          example: '2020-08-22T17:32:28Z'
+        place:
+          $ref: '#/components/schemas/EventPlace'
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        seatNo:
+          type: integer
+          format: int32
+          example: 12
+        event:
+          $ref: '#/components/schemas/Event'
+    BookedTickets:
+      type: object
+      properties:
+        tickets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ticket'
