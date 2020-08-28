@@ -2,9 +2,7 @@ package springboot.ticketsonline.entities;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -19,10 +17,14 @@ import java.util.Date;
  * - no EJB  
  */
 @Entity
+@Table( name = "event")
 public class Event
 {
   @Id
+  @GeneratedValue( strategy = GenerationType.AUTO, generator = "")
   private Long iD;
+
+  @Column( name="name", length = 255, nullable = true, unique = false)
   private String name;
   private Date date;
   private EventPlace eventPlace;

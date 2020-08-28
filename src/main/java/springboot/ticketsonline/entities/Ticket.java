@@ -1,7 +1,14 @@
 package springboot.ticketsonline.entities;
 
+import javax.persistence.*;
+
+@Entity
+@Table( name = "tickets")
 public class Ticket
 {
+  @Id
+  @GeneratedValue( strategy = GenerationType.AUTO, generator = "") // pt++ : both default values, just to show them ...
+  @Column(name = "id") // pt++ : just to show it ...
   private Long iD;
   private Integer seatNo;
   private Event event;

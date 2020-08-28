@@ -1,9 +1,19 @@
 package springboot.ticketsonline.entities;
 
+import javax.persistence.*;
+
+@Entity
+@Table( name = "eventplaces")
 public class EventPlace
 {
+  @Id
+  @GeneratedValue( strategy = GenerationType.AUTO, generator = "")
   private Long iD;
+
+  @Column( name = "name", unique = true)
   private String  name;
+
+  @Column( name="noofseats", precision = 255, scale = 0)
   private Integer noOfSeats;
 
   public EventPlace()
