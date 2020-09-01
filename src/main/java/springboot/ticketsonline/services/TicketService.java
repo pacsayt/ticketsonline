@@ -5,9 +5,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import springboot.ticketsonline.entities.EventPlace;
 import springboot.ticketsonline.entities.Ticket;
+import springboot.ticketsonline.repositories.TicketRepository;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,73 +22,30 @@ import java.util.List;
  *
  */
 
-@Repository // @Service
+@Service
 public class TicketService
 {
-  private SessionFactory sessionFactory;
-
   @Autowired
-  public TicketService(SessionFactory iniSessionFactory)
+  private TicketRepository ticketRepository;
+
+  public Long count()
   {
-    sessionFactory = iniSessionFactory;
+    return ticketRepository.count();
   }
 
-  public long saveTicket(Ticket ticketToBeSaved)
+  public Ticket save(Ticket ticketToBeSaved)
   {
-    Session session = sessionFactory.openSession();
-    Transaction transaction = null;
+    Ticket savedTicket = ticketRepository.save( ticketToBeSaved);
 
-    long ticketId = 0;
-
-    try
-    {
-      transaction = session.beginTransaction();
-
-      ticketId = (Long) session.save(ticketToBeSaved);
-
-      ticketToBeSaved.setiD( ticketId); // pt++ : ???
-    }
-    catch ( HibernateException hibernateException)
-    {
-      if ( transaction != null )
-      {
-        transaction.rollback();
-      }
-    }
-    finally
-    {
-      session.close();
-    }
-
-    return ticketId;
+    return savedTicket;
+  }
+  public Ticket getOne(Long iD)
+  {
+    return ticketRepository.getOne( iD);
   }
 
-  public List<Ticket> getAll()
+  public List<Ticket> findAll()
   {
-    Session session = sessionFactory.openSession();
-    Transaction transaction = null;
-
-    List<Ticket> allTickets = Collections.emptyList();
-
-    try
-    {
-      transaction.begin();
-
-      allTickets = session.createQuery( "from tickets").list();
-
-      transaction.commit();
-    }
-    catch( HibernateException hibernateException)
-    {
-      transaction.rollback();
-    }
-    finally
-    {
-      session.close();
-    }
-
-    return allTickets;
+    return ticketRepository.findAll();
   }
-
-  // pt++ : and the beat goes on ...
 }

@@ -1,2 +1,4 @@
 -- Hibernate support
-wqdqwdwq wqeq13r 23rf32r23
+-- insert into event_place values(11, 'Name_11', 11);
+-- insert into event_place values(22, 'Name_22', 22);
+-- insert into event_place values(33, 'Name_33', 33);

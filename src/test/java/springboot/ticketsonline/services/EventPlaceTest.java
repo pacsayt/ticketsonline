@@ -50,17 +50,18 @@ public class EventPlaceTest
   public void testSaveEventPlaceSucceeds()
   {
     EventPlace eventPlaceToSave;
+    EventPlace savedEventPlace;
     Long newId;
 
     eventPlaceToSave = new EventPlace( 111L, "Name_1", 10); // (Long iniID, String iniName, Integer iniNoOfSeats)
-    newId = eventPlaceService.saveEventPlace( eventPlaceToSave);
-    System.out.println( "testSaveEventPlaceSucceeds() : newId=" + newId);
+    savedEventPlace = eventPlaceService.save( eventPlaceToSave);
+    System.out.println( "testSaveEventPlaceSucceeds() : savedEventPlace.iD=" + savedEventPlace.getiD());
 
     eventPlaceToSave = new EventPlace( 222L, "Name_2", 20); // (Long iniID, String iniName, Integer iniNoOfSeats);
-    newId = eventPlaceService.saveEventPlace( eventPlaceToSave);
-    System.out.println( "testSaveEventPlaceSucceeds() : newId=" + newId);
+    savedEventPlace = eventPlaceService.save( eventPlaceToSave);
+    System.out.println( "testSaveEventPlaceSucceeds() : savedEventPlace.iD=" + savedEventPlace.getiD());
 
-    List<EventPlace> allEventPlaces = eventPlaceService.getAll();
+    List<EventPlace> allEventPlaces = eventPlaceService.findAll();
 
     System.out.println( "testSaveEventPlaceSucceeds() : allEventPlaces=" + Arrays.toString( allEventPlaces.toArray()));
   }

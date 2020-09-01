@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
-// import javax.persistence.*;
-
 /**
  * H2 in-memory database. Table not found
  * https://stackoverflow.com/questions/5763747/h2-in-memory-database-table-not-found

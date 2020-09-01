@@ -1,6 +1,5 @@
 package springboot.ticketsonline.entities;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -33,7 +32,7 @@ public class Event
   private Date date;
 
   @ManyToOne
-//  @JoinColumn( name="id", nullable=false)
+//  @JoinColumn( name="event_place_id", nullable=false)
   private EventPlace eventPlace;
 
   public Event()

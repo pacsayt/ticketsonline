@@ -1,91 +1,35 @@
 package springboot.ticketsonline.services;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import springboot.ticketsonline.entities.EventPlace;
+import springboot.ticketsonline.repositories.EventPlaceRepository;
 
-import java.util.Collections;
 import java.util.List;
 
-@Repository
+@Service
 public class EventPlaceService
 {
-  private SessionFactory sessionFactory;
-
   @Autowired
-  public EventPlaceService(SessionFactory iniSessionFactory)
+  private EventPlaceRepository eventPlaceRepository;
+
+  public Long count()
   {
-    sessionFactory = iniSessionFactory;
+    return eventPlaceRepository.count();
   }
 
-  public Long saveEventPlace(EventPlace eventPlaceToSave)
+  public EventPlace save(EventPlace eventPlaceToSave)
   {
-    Session session = sessionFactory.openSession();
-
-    Transaction transaction = null;
-
-    long eventPlaceId = 0;
-
-    try
-    {
-      transaction = session.beginTransaction();
-
-      eventPlaceId = (Long) session.save( eventPlaceToSave);
-
-      eventPlaceToSave.setiD( eventPlaceId); // pt++ : ???
-    }
-    catch ( HibernateException hibernateException)
-    {
-/*
-      Sequence "HIBERNATE_SEQUENCE" not found
-      org.h2.jdbc.JdbcSQLSyntaxErrorException: Sequence "HIBERNATE_SEQUENCE" not found; SQL statement:
-      call next value for hibernate_sequence [90036-200]
-*/
-      if ( transaction != null )
-      {
-        transaction.rollback();
-      }
-    }
-    finally
-    {
-      session.close();
-    }
-
-    return eventPlaceId;
+    return eventPlaceRepository.save( eventPlaceToSave);
   }
 
-  public List<EventPlace> getAll()
+  public EventPlace getOne(Long iD)
   {
-    Session session = sessionFactory.openSession();
+    return eventPlaceRepository.getOne( iD);
+  }
 
-    Transaction transaction = null;
-
-    List<EventPlace> allEventPlace = Collections.emptyList();
-
-    try
-    {
-      transaction = session.beginTransaction();
-
-      allEventPlace = session.createQuery( "from event_place").list();
-
-      transaction.commit();
-    }
-    catch( HibernateException hibernateException)
-    {
-      if ( transaction != null )
-      {
-        transaction.rollback();
-      }
-    }
-    finally
-    {
-      session.close();
-    }
-
-    return allEventPlace;
+  public List<EventPlace> findAll()
+  {
+    return eventPlaceRepository.findAll();
   }
 }
