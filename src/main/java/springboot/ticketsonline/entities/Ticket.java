@@ -3,14 +3,19 @@ package springboot.ticketsonline.entities;
 import javax.persistence.*;
 
 @Entity
-@Table( name = "tickets")
+@Table( name = "ticket")
 public class Ticket
 {
   @Id
   @GeneratedValue( strategy = GenerationType.AUTO, generator = "") // pt++ : both default values, just to show them ...
-  @Column(name = "id") // pt++ : just to show it ...
+  @Column( name = "ticket_id") // pt++ : just to show it ...
   private Long iD;
+
+  @Column( name = "seat_no", precision = 255, scale = 0) // pt++ : just to show it ...
   private Integer seatNo;
+
+  @ManyToOne
+  @JoinColumn( name="event_id", nullable=false)
   private Event event;
 
   public Ticket()

@@ -40,6 +40,11 @@ public class EventPlaceService
     }
     catch ( HibernateException hibernateException)
     {
+/*
+      Sequence "HIBERNATE_SEQUENCE" not found
+      org.h2.jdbc.JdbcSQLSyntaxErrorException: Sequence "HIBERNATE_SEQUENCE" not found; SQL statement:
+      call next value for hibernate_sequence [90036-200]
+*/
       if ( transaction != null )
       {
         transaction.rollback();
@@ -65,7 +70,7 @@ public class EventPlaceService
     {
       transaction = session.beginTransaction();
 
-      allEventPlace = session.createQuery( "from eventplaces").list();
+      allEventPlace = session.createQuery( "from event_place").list();
 
       transaction.commit();
     }

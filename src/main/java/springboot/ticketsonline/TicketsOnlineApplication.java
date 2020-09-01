@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Spring Boot With H2 Database
  * https://www.baeldung.com/spring-boot-h2-database
  *
+ *  pt++ : H2 console : http://localhost:8080/h2-console/ -> JDBC URL : =jdbc:h2:mem:test
+ *
  * Session :
  *   Instances may exist in one of the following three states :
  *   transient − A new instance of a persistent class, which is not associated with a Session
@@ -39,5 +41,7 @@ public class TicketsOnlineApplication
 	public static void main(String[] args)
 	{
 		SpringApplication.run(TicketsOnlineApplication.class, args);
+
+		while (true){}
 	}
 }

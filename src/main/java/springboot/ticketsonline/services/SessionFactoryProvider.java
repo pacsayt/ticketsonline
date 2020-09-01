@@ -6,11 +6,13 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import org.hibernate.id.Configurable;
+import org.hibernate.service.ServiceRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -36,23 +38,59 @@ import java.util.Properties;
 @Configuration
 public class SessionFactoryProvider
 {
+  public LocalSessionFactoryBean sessionFactory() {
+    LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
+//    localSessionFactoryBean.setDataSource(restDataSource());
+    localSessionFactoryBean.setPackagesToScan( new String[] { "springboot.ticketsonline.entities" });
+    return localSessionFactoryBean;
+  }
+
   @Bean
-  @Scope("singleton") // pt++ : this is the default
+  public SessionFactory configureSessionFactory() throws IOException
+  {
+    org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
+    InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("hibernate.properties");
+    Properties hibernateProperties = new Properties();
+    hibernateProperties.load(inputStream);
+    configuration.setProperties(hibernateProperties);
+
+    // configuration.addAnnotatedClass(Foo.class);
+
+    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+    SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+    sessionFactory.  setPackagesToScan( new String[] { "springboot.ticketsonline.entities" });
+    return sessionFactory;
+  }
+
+
+
+//  @Bean
+  // @Scope("singleton") // pt++ : this is the default
   public SessionFactory createSessionFactory()
   {
-    StandardServiceRegistry registry = null;
+    StandardServiceRegistry standardServiceRegistry = null;
     SessionFactory sessionFactory = null;
 
     try
     {
+      org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
+//      configuration.addClass( Event.class); // pt++ : -> *.hbm.xml
+
+
       // Create registry
-      registry = new StandardServiceRegistryBuilder().configure().build();
+//    standardServiceRegistry = new StandardServiceRegistryBuilder().configure().build();                                   // pt++ : this uses hibernate.cfg.xml
+      standardServiceRegistry = new StandardServiceRegistryBuilder().applySettings( configuration.getProperties()).build(); // pt++ : this uses hibernate.properties
 
       // Create MetadataSources
-      MetadataSources sources = new MetadataSources(registry);
+      MetadataSources metadataSources = new MetadataSources( standardServiceRegistry);
+
+//      metadataSources.addAnnotatedClass( EventPlace.class); pt++ : will search then corresponding XML files ...
+//      metadataSources.addAnnotatedClass( Event.class);
+//      metadataSources.addAnnotatedClass( Ticket.class);
+//      metadataSources.addAnnotatedClass( BookedTickets.class);
 
       // Create Metadata
-      Metadata metadata = sources.getMetadataBuilder().build();
+      Metadata metadata = metadataSources.getMetadataBuilder().build();
 
       // Create SessionFactory
       sessionFactory = metadata.getSessionFactoryBuilder().build();
@@ -60,9 +98,9 @@ public class SessionFactoryProvider
     catch (Exception e)
     {
       e.printStackTrace();
-      if (registry != null)
+      if (standardServiceRegistry != null)
       {
-        StandardServiceRegistryBuilder.destroy( registry);
+        StandardServiceRegistryBuilder.destroy( standardServiceRegistry);
       }
     }
 

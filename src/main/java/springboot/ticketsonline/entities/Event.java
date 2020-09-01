@@ -1,6 +1,7 @@
 package springboot.ticketsonline.entities;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,17 +23,24 @@ public class Event
 {
   @Id
   @GeneratedValue( strategy = GenerationType.AUTO, generator = "")
+  @Column(name = "event_id")
   private Long iD;
 
   @Column( name="name", length = 255, nullable = true, unique = false)
   private String name;
+
+  @Column( name="date")
   private Date date;
+
+  @ManyToOne
+//  @JoinColumn( name="id", nullable=false)
   private EventPlace eventPlace;
 
   public Event()
   {
   }
 
+  @Autowired
   public Event(Long iniID, String iniName, Date iniDate, EventPlace iniEventPlace)
   {
     iD = iniID;
@@ -41,9 +49,11 @@ public class Event
     eventPlace = iniEventPlace;
   }
 
+/*
   @Id // pt++ : should this annotation be added here or to the member definition ?
   @GeneratedValue(generator="increment")
   @GenericGenerator(name="increment", strategy = "increment")
+*/
   public Long getId() {
     return iD;
   }

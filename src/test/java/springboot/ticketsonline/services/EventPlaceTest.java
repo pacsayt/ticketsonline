@@ -7,6 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonline.entities.EventPlace;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -42,13 +47,22 @@ public class EventPlaceTest
   @Tag( "fast")
   @Test
   @DisplayName("@DisplayName : saveEventPlaceSucceeds()")
-  public void saveEventPlaceSucceeds()
+  public void testSaveEventPlaceSucceeds()
   {
-    EventPlace eventPlaceToSave = new EventPlace( 12345L, "Name_1", 123); // (Long iniID, String iniName, Integer iniNoOfSeats)
-    Long newId = eventPlaceService.saveEventPlace( eventPlaceToSave);
+    EventPlace eventPlaceToSave;
+    Long newId;
 
-    assertTrue( newId != 0L);
-    assertEquals( newId, 1L);
+    eventPlaceToSave = new EventPlace( 111L, "Name_1", 10); // (Long iniID, String iniName, Integer iniNoOfSeats)
+    newId = eventPlaceService.saveEventPlace( eventPlaceToSave);
+    System.out.println( "testSaveEventPlaceSucceeds() : newId=" + newId);
+
+    eventPlaceToSave = new EventPlace( 222L, "Name_2", 20); // (Long iniID, String iniName, Integer iniNoOfSeats);
+    newId = eventPlaceService.saveEventPlace( eventPlaceToSave);
+    System.out.println( "testSaveEventPlaceSucceeds() : newId=" + newId);
+
+    List<EventPlace> allEventPlaces = eventPlaceService.getAll();
+
+    System.out.println( "testSaveEventPlaceSucceeds() : allEventPlaces=" + Arrays.toString( allEventPlaces.toArray()));
   }
 
   @AfterEach
