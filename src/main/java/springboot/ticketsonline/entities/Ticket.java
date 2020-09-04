@@ -1,13 +1,14 @@
 package springboot.ticketsonline.entities;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Table( name = "ticket")
 public class Ticket
 {
   @Id
-  @GeneratedValue( strategy = GenerationType.AUTO, generator = "") // pt++ : both default values, just to show them ...
+  @GeneratedValue( strategy = GenerationType.AUTO, generator = "") // pt++ : both default values, GenerationType.IDENTITY ???
   @Column( name = "ticket_id") // pt++ : just to show it ...
   private Long iD;
 
@@ -18,15 +19,19 @@ public class Ticket
   @JoinColumn( name="event_id", nullable=false)
   private Event event;
 
+  @Column( name="ticket_price")
+  private Integer ticketPrice;
+
   public Ticket()
   {
   }
 
-  public Ticket(Long iniId, Integer iniSeatNo, Event iniEvent)
+  public Ticket(Long iniId, Integer iniSeatNo, Event iniEvent, Integer iniTicketPrice)
   {
     iD = iniId;
     seatNo = iniSeatNo;
     event = iniEvent;
+    ticketPrice = iniTicketPrice;
   }
 
   public Long getiD()
@@ -57,5 +62,15 @@ public class Ticket
   public void setEvent(Event iniEvent)
   {
     event = iniEvent;
+  }
+
+  public Integer getTicketPrice()
+  {
+    return ticketPrice;
+  }
+
+  public void setTicketPrice(Integer iniTicketPrice)
+  {
+    ticketPrice = iniTicketPrice;
   }
 }

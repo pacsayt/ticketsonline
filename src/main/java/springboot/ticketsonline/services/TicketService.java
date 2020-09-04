@@ -10,8 +10,10 @@ import springboot.ticketsonline.entities.EventPlace;
 import springboot.ticketsonline.entities.Ticket;
 import springboot.ticketsonline.repositories.TicketRepository;
 
+import javax.persistence.EntityManager;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * pt++ : https://www.baeldung.com/spring-component-repository-service
@@ -26,6 +28,9 @@ import java.util.List;
 public class TicketService
 {
   @Autowired
+  private EntityManager entityManager;
+
+  @Autowired
   private TicketRepository ticketRepository;
 
   public Long count()
@@ -39,13 +44,29 @@ public class TicketService
 
     return savedTicket;
   }
-  public Ticket getOne(Long iD)
+
+  public Optional<Ticket> findById(Long iD)
   {
-    return ticketRepository.getOne( iD);
+    return ticketRepository.findById( iD);
   }
 
   public List<Ticket> findAll()
   {
     return ticketRepository.findAll();
+  }
+
+  public void delete( Ticket ticketToBeDeleted)
+  {
+    ticketRepository.delete( ticketToBeDeleted);
+  }
+
+  public EntityManager getEntityManager()
+  {
+    return entityManager;
+  }
+
+  public Ticket getOne(Long iD)
+  {
+    return ticketRepository.getOne( iD);
   }
 }

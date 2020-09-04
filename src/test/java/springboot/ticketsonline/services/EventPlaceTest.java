@@ -3,6 +3,7 @@ package springboot.ticketsonline.services;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonline.entities.EventPlace;
@@ -11,9 +12,9 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The “Testing with Spring Boot” Series,
@@ -25,21 +26,49 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @ExtendWith(SpringExtension.class) // pt++ : JUnit 5 : @ExtendWith(SpringExtension.class), JUnit 4 : @RunWith(SpringRunner.class)
 @SpringBootTest  // pt++ : starts the whole container that is not always necessary, and can lead to time consuming tests
-                 //        vs. : @WebMvcTest / @DataJpaTest
-@DisplayName("A special test case")
+                 // pt++ : vs. : @WebMvcTest / @DataJpaTest -> all tests fail using this
+@DisplayName("Event place test cases")
 public class EventPlaceTest
 {
   @Autowired
   private EventPlaceService eventPlaceService;
 
   @BeforeAll
-  static void initAll()
+  static void beforeAll()
   {
   }
 
   @BeforeEach
-  void init()
+  void beforeEach()
   {
+  }
+
+  /**
+   * LazyInitializationException: could not initialize proxy [springboot.ticketsonline.entities.EventPlace#11] - no Session
+   * Hibernate could not initialize proxy – no Session
+   * https://www.baeldung.com/hibernate-initialize-proxy-exception
+   *
+   */
+  @Test
+  public void testFindOneExisting()
+  {
+    Optional<EventPlace> optionalEventPlace;
+    optionalEventPlace = eventPlaceService.findById( 11L);
+
+    assertTrue( optionalEventPlace.isPresent());
+
+    EventPlace savedEventPlace = optionalEventPlace.get();
+
+    assertEquals( "Name_11", savedEventPlace.getName());
+  }
+
+  @Test
+  public void testFindOneNonExisting()
+  {
+    Optional<EventPlace> optionalEventPlace;
+    optionalEventPlace = eventPlaceService.findById( 0L);
+
+    assertFalse( optionalEventPlace.isPresent());
   }
 
   // @Fast ???
@@ -54,7 +83,7 @@ public class EventPlaceTest
     Long newId;
 
     eventPlaceToSave = new EventPlace( 111L, "Name_1", 10); // (Long iniID, String iniName, Integer iniNoOfSeats)
-    savedEventPlace = eventPlaceService.save( eventPlaceToSave);
+    savedEventPlace = eventPlaceService.save( eventPlaceToSave); // pt++ : will overwrite iD with the value given by DB
     System.out.println( "testSaveEventPlaceSucceeds() : savedEventPlace.iD=" + savedEventPlace.getiD());
 
     eventPlaceToSave = new EventPlace( 222L, "Name_2", 20); // (Long iniID, String iniName, Integer iniNoOfSeats);
@@ -64,6 +93,24 @@ public class EventPlaceTest
     List<EventPlace> allEventPlaces = eventPlaceService.findAll();
 
     System.out.println( "testSaveEventPlaceSucceeds() : allEventPlaces=" + Arrays.toString( allEventPlaces.toArray()));
+
+    assertEquals( 5, allEventPlaces.size(), " - Check if all of the two have been saved. # have been inserted by import.sql.");
+  }
+
+  @Test
+  public void testDeletion()
+  {
+    EventPlace savedEventPlace;
+
+    Optional<EventPlace> optionalEventPlace = eventPlaceService.findById( 11L);
+
+    assertTrue( optionalEventPlace.isPresent());
+
+    eventPlaceService.delete( optionalEventPlace.get());
+
+    optionalEventPlace = eventPlaceService.findById( 11L);
+
+    assertFalse( optionalEventPlace.isPresent());
   }
 
   @AfterEach
