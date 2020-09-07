@@ -20,6 +20,12 @@ public class BookedTicket
   {
   }
 
+  public BookedTicket( Long iniId, Ticket iniBookedTicket)
+  {
+    iD = iniId;
+    bookedTicket = iniBookedTicket;
+  }
+
   public Ticket getBookedTicket()
   {
     return bookedTicket;
@@ -28,5 +34,15 @@ public class BookedTicket
   public void setBookedTickets(Ticket iniBookedTicket)
   {
     bookedTicket = iniBookedTicket;
+  }
+
+  public Long getiD()
+  {
+    return iD;
+  }
+
+  public void setiD( Long iniId)
+  {
+    iD = iniId;
   }
 }

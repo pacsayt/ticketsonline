@@ -1,7 +1,9 @@
 package springboot.ticketsonline.services;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest  // pt++ : starts the whole container that is not always necessary, and can lead to time consuming tests
                  // pt++ : vs. : @WebMvcTest / @DataJpaTest -> all tests fail using this
 @DisplayName("Event place test cases")
-public class EventPlaceTest
+public class EventPlaceServiceTest
 {
   @Autowired
   private EventPlaceService eventPlaceService;
@@ -97,20 +99,19 @@ public class EventPlaceTest
     assertEquals( 5, allEventPlaces.size(), " - Check if all of the two have been saved. # have been inserted by import.sql.");
   }
 
-  @Test
+  @Test()
   public void testDeletion()
   {
-    EventPlace savedEventPlace;
-
     Optional<EventPlace> optionalEventPlace = eventPlaceService.findById( 11L);
 
     assertTrue( optionalEventPlace.isPresent());
 
-    eventPlaceService.delete( optionalEventPlace.get());
+    EventPlace eventPlaceToBeDeleted = optionalEventPlace.get();
+    Assertions.assertThrows( org.springframework.dao.DataIntegrityViolationException.class, () -> {eventPlaceService.delete(  eventPlaceToBeDeleted);});
 
     optionalEventPlace = eventPlaceService.findById( 11L);
 
-    assertFalse( optionalEventPlace.isPresent());
+    assertTrue( optionalEventPlace.isPresent());
   }
 
   @AfterEach

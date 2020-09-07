@@ -1,8 +1,8 @@
 -- Hibernate support src/test
 -- o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'file:/home/tamas/projektek/TicketsOnline/ticketsonline/target/test-classes/import.sql'
-insert into event_place values(11, 'Name_11', 11);
-insert into event_place values(22, 'Name_22', 22);
-insert into event_place values(33, 'Name_33', 33);
+insert into event_place values( 11, 'Name_11', 11);
+insert into event_place values( 22, 'Name_22', 22);
+insert into event_place values( 33, 'Name_33', 33);
 
 -- insert into event values( 11, parsedatetime('03-09-2020 11:32:41.00', 'dd-MM-yyyy hh:mm:ss.SS'), 'EventName_11', 11); pt++ : never tested
 insert into event values( 11, '2020-09-03 11:32:41.00', 'EventName_11', 11);

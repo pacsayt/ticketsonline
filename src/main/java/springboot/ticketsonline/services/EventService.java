@@ -28,9 +28,9 @@ public class EventService
 
   public Optional<Event> findById( Long iD)
   {
-    Optional<Event> EventOptional = eventRepository.findById( iD);
+    Optional<Event> eventOptional = eventRepository.findById( iD);
 
-    return EventOptional;
+    return eventOptional;
   }
 
   public List<Event> findAll()

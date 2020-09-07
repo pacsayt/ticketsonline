@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DisplayName( "Ticket test cases")
-public class TicketTest
+public class TicketServiceTest
 {
   @Autowired
   private TicketService ticketService;

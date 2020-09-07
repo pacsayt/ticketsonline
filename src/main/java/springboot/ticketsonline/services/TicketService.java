@@ -45,14 +45,24 @@ public class TicketService
     return savedTicket;
   }
 
+  public List<Ticket> findAll()
+  {
+    return ticketRepository.findAll();
+  }
+
   public Optional<Ticket> findById(Long iD)
   {
     return ticketRepository.findById( iD);
   }
-
-  public List<Ticket> findAll()
+/*
+  public Optional<Ticket> findByEvent(Long iD)
   {
-    return ticketRepository.findAll();
+    return ticketRepository.findByEvent( iD);
+  }
+*/
+  public List<Ticket> findByEventName( String name)
+  {
+    return ticketRepository.findByEventName( name);
   }
 
   public void delete( Ticket ticketToBeDeleted)

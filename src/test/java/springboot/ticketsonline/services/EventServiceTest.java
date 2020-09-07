@@ -13,8 +13,6 @@ import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.EventPlace;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class) // pt++ : JUnit 5 : @ExtendWith(SpringExtension.class), JUnit 4 : @RunWith(SpringRunner.class)
 @SpringBootTest
 @DisplayName("Event test cases")
-public class EventTest
+public class EventServiceTest extends TestBase
 {
   @Autowired
   private EventPlaceService eventPlaceService;
@@ -135,17 +133,5 @@ public class EventTest
     Long countTicketAfter = ticketService.count();
 
     System.out.println( "testDeletionOfEventWhereTicketsExist() : countTicketBefore=" + countTicketBefore + " countTicketAfter=" + countTicketAfter);
-  }
-
-  // pt++ : as there's no reasonable constructor for Date
-  private static Date stringToDate( String dateInStringFormat) throws ParseException
-  {
-    Date newdate = null;
-
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-
-    newdate = dateFormat.parse( dateInStringFormat);
-
-    return newdate;
   }
 }
