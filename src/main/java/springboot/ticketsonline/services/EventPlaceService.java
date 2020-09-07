@@ -56,8 +56,23 @@ public class EventPlaceService
     return eventPlaceRepository.findAll();
   }
 
-  public void delete(EventPlace  eventPlaceToBeDeleted)
+  public void delete( EventPlace  eventPlaceToBeDeleted)
   {
     eventPlaceRepository.delete( eventPlaceToBeDeleted);
+  }
+
+  public List<EventPlace> findByNameContainingIgnoreCase( String name)
+  {
+    return eventPlaceRepository.findByNameContainingIgnoreCase( name);
+  }
+
+  public List<EventPlace> findFirst2ByNameContainingIgnoreCase( String name)
+  {
+    return eventPlaceRepository.findFirst2ByNameContainingIgnoreCase( name);
+  }
+
+  public List<EventPlace> findByNameContainingIgnoreCaseOrderByNameAsc( String name)
+  {
+    return eventPlaceRepository.findByNameContainingIgnoreCaseOrderByNameAsc( name);
   }
 }
