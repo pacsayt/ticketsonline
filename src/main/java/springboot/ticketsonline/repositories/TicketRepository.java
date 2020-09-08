@@ -5,6 +5,7 @@ import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.Ticket;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * pt++ :
@@ -16,13 +17,15 @@ import java.util.List;
  */
 public interface TicketRepository extends JpaRepository<Ticket, Long>
 {
-  List<Ticket> findByTicketPrice(Integer ticketPrice);
+  List<Ticket> findByTicketPrice( Integer ticketPrice);
 
-  List<Ticket> findByTicketPriceLessThan(Integer ticketPrice);
+  List<Ticket> findByTicketPriceLessThan( Integer ticketPrice);
 
-  List<Ticket> findByTicketPriceBetween(Integer minPrice, Integer maxPrice);
+  List<Ticket> findByTicketPriceBetween( Integer minPrice, Integer maxPrice);
 
-  List<Ticket> findByEventAndTicketPrice(Event event, Integer ticketPrice); // pt++ : referenced object in query param
+  List<Ticket> findByEventAndTicketPrice( Event event, Integer ticketPrice); // pt++ : referenced object in query param
+
+  List<Ticket> findByEvent( Event event);
 
   List<Ticket> findByEventName( String name); // pt++ : referenced object in query param
 }

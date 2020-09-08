@@ -62,6 +62,7 @@ public class EventServiceTest extends TestBase
     assertFalse( optionalEvent.isPresent());
   }
 
+
   @Test
   public void testFindAll()
   {

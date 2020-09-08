@@ -37,18 +37,11 @@ public class EventPlaceService
     return eventPlaceRepository.save( eventPlaceToSave);
   }
 
-//    eventPlaceRepository.findOne(Example<EventPlace> eventPlaceExample)
-
   public Optional<EventPlace> findById( Long iD)
   {
     Optional<EventPlace> eventPlaceOptional = eventPlaceRepository.findById( iD);
 
     return eventPlaceOptional;
-  }
-
-  public EventPlace getOne( Long iD)
-  {
-    return eventPlaceRepository.getOne( iD);
   }
 
   public List<EventPlace> findAll()
@@ -74,5 +67,10 @@ public class EventPlaceService
   public List<EventPlace> findByNameContainingIgnoreCaseOrderByNameAsc( String name)
   {
     return eventPlaceRepository.findByNameContainingIgnoreCaseOrderByNameAsc( name);
+  }
+
+  public EventPlace getOne( Long iD)
+  {
+    return eventPlaceRepository.getOne( iD);
   }
 }

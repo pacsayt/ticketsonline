@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.Ticket;
 
 import javax.persistence.EntityManager;
@@ -41,6 +42,14 @@ public class TicketServiceTest
     List<Ticket> optionalTicket = ticketService.findAll();
 
     assertEquals( 5, optionalTicket.size()); // pt++ : if execution order of tc-s changes might get 6
+  }
+
+  @Test
+  public void testFindByEventName()
+  {
+    List<Ticket> listTicket = ticketService.findByEventName( "EventName_11");
+
+    assertTrue( listTicket.size() == 4);
   }
 
   @Test

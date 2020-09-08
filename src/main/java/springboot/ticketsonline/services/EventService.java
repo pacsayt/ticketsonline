@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.repositories.EventRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,11 @@ public class EventService
   public List<Event> findAll()
   {
     return eventRepository.findAll();
+  }
+
+  public Optional<Event> findByNameAndDate( String name, Date date)
+  {
+    return eventRepository.findByNameAndDate( name, date);
   }
 
   public void delete( Event  EventToBeDeleted)

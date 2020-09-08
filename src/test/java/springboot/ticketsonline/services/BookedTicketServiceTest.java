@@ -11,6 +11,7 @@ import springboot.ticketsonline.entities.EventPlace;
 import springboot.ticketsonline.entities.Ticket;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,24 +42,13 @@ public class BookedTicketServiceTest extends TestBase
     assertEquals( 2, amountBookedTickets);
   }
 
-//  @Test
-//  public void testSave()
-//  {
-//    EventPlace eventPlaceToSave;
-//    EventPlace eventPlaceSaved;
-//
-//    eventPlaceToSave = new EventPlace( 111L, "Name_111", 111); // (Long iniID, String iniName, Integer iniNoOfSeats)
-//    eventPlaceSaved = eventPlaceService.save( eventPlaceToSave);
-//
-//    Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceSaved);
-//
-//    Event savedEvent = eventService.save( eventToSave);
-//
-//
-//    Ticket ticketTobeDeleted = new Ticket( 1L, 1, null, 11);
-//
-//    bookedTicketService.save( )
-//  }
+  @Test
+  public void testfindAll()
+  {
+    List<BookedTicket> listBookedTickets = bookedTicketService.findAll();
+
+    assertEquals( 2, listBookedTickets.size());
+  }
 
   @Test
   public void testSaveBookedTicket() throws ParseException
@@ -98,5 +88,13 @@ public class BookedTicketServiceTest extends TestBase
     List<BookedTicket> bookedTicketsForEvent = bookedTicketService.findByBookedTicketEvent( eventSearchCriteria);
 
     assertEquals( 22L, bookedTicketsForEvent.get( 0).getiD());
+  }
+
+  @Test
+  public void testFindAvailableTickets() throws ParseException
+  {
+    Integer availableTickets  = bookedTicketService.findAvailableTickets( "EventName_22", stringToDate("2020-09-03 11:32:41.00")); // pt++ : some useful functionality to be implemented here
+
+    assertEquals( 21, availableTickets <- 0);
   }
 }

@@ -17,7 +17,7 @@ import java.util.Date;
  * - no EJB  
  */
 @Entity
-@Table( name = "event")
+@Table( name = "event", uniqueConstraints={@UniqueConstraint(columnNames = {"name" , "date"})}) // pt++
 public class Event
 {
   @Id
