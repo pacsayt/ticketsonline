@@ -10,6 +10,7 @@ import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.EventPlace;
 import springboot.ticketsonline.entities.Ticket;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+@Transactional
 public class BookedTicketServiceTest extends TestBase
 {
   @Autowired
@@ -95,6 +97,6 @@ public class BookedTicketServiceTest extends TestBase
   {
     Integer availableTickets  = bookedTicketService.findAvailableTickets( "EventName_22", stringToDate("2020-09-03 11:32:41.00")); // pt++ : some useful functionality to be implemented here
 
-    assertEquals( 21, availableTickets <- 0);
+    assertEquals( 21, availableTickets);
   }
 }

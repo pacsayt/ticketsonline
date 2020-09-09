@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.repositories.EventRepository;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,18 @@ public class EventService
     return eventRepository.findAll();
   }
 
-  public Optional<Event> findByNameAndDate( String name, Date date)
+  public List<Event> findByName( String name)
+  {
+    return eventRepository.findByName( name);
+  }
+
+  public List<Event> findByDate( Timestamp date)
+  {
+    return eventRepository.findByDate( date);
+  }
+
+
+  public Optional<Event> findByNameAndDate( String name, Timestamp date)
   {
     return eventRepository.findByNameAndDate( name, date);
   }

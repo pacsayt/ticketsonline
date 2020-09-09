@@ -8,6 +8,7 @@ import springboot.ticketsonline.entities.Ticket;
 import springboot.ticketsonline.repositories.BookedTicketRepository;
 import springboot.ticketsonline.repositories.EventRepository;
 
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,7 @@ public class BookedTicketService
     return bookedTicketRepository.findByBookedTicketEvent( event);
   }
 
-  public Integer findAvailableTickets( String name, Date date) // pt++ : some useful functionality to be implemented here
+  public Integer findAvailableTickets( String name, Timestamp date) // pt++ : some useful functionality to be implemented here
   {
     Integer noOfFreSeatsForTheEvent = 0;
 

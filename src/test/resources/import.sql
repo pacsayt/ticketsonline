@@ -22,4 +22,5 @@ insert into ticket values( 33, 3, 133, 33);
 
 -- bookedticket (bookedticket_id bigint not null, booked_ticket_ticket_id bigint
 insert into bookedticket values( 22, 22);
+
 insert into bookedticket values( 33, 33);

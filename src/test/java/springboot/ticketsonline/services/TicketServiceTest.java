@@ -57,7 +57,8 @@ public class TicketServiceTest
   {
     Long ticketsCountBefore = ticketService.count();
 
-    Ticket ticketTobeDeleted = new Ticket( 33L, 0, null, 0);
+//    Ticket ticketTobeDeleted = new Ticket( 33L, 0, null, 0); pt++ : won't delete as this occours in BookedTickets
+    Ticket ticketTobeDeleted = new Ticket( 13L, 0, null, 0);
 
     ticketService.delete( ticketTobeDeleted);
 

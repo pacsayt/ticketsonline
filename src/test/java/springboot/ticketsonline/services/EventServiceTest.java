@@ -12,7 +12,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.EventPlace;
 
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.text.ParseException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class) // pt++ : JUnit 5 : @ExtendWith(SpringExtension.class), JUnit 4 : @RunWith(SpringRunner.class)
 @SpringBootTest
 @DisplayName("Event test cases")
+@Transactional
 public class EventServiceTest extends TestBase
 {
   @Autowired
@@ -69,6 +73,42 @@ public class EventServiceTest extends TestBase
     List<Event> eventFound = eventService.findAll();
 
     assertTrue( eventFound.size() == 4);
+  }
+
+  @Test
+  public void testFindByName() throws ParseException
+  {
+    List<Event> listEvent = eventService.findByName( "EventName_11");
+
+    assertEquals( 1, listEvent.size());
+  }
+
+  @Test
+  public void testFindByDate() throws ParseException
+  {
+/* The database returned a Timestamp (extends Date) object
+
+    Optional<Event> optionalEvent = eventService.findById( 11L);
+    Timestamp eventDate  = optionalEvent.get().getDate(); // pt++ : Timestamp instead of Date
+
+    long timeDate = date.getTime();
+    long timeEventDate = eventDate.getTime();
+    assertTrue( date.getTime() == eventDate.getTime());
+    assertTrue( date.equals( eventDate));
+*/
+    Timestamp date = stringToDate( "2020-09-03 11:32:41.00");
+
+    List<Event> listEvent = eventService.findByDate( date);
+
+    assertEquals( 4, listEvent.size());
+  }
+
+  @Test
+  public void testFindByNameAndDate() throws ParseException
+  {
+    Optional<Event> optionalEvent = eventService.findByNameAndDate( "EventName_11", stringToDate( "2020-09-03 11:32:41.00"));
+
+    assertTrue( optionalEvent.isPresent());
   }
 
   @Test

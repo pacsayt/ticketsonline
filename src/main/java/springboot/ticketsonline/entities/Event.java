@@ -3,7 +3,8 @@ package springboot.ticketsonline.entities;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
+// import java.util.Date;
 
 /**
  * called persistent classes in Hibernate
@@ -29,7 +30,7 @@ public class Event
   private String name;
 
   @Column( name="date")
-  private Date date;
+  private Timestamp date;
 
   @ManyToOne
 //  @JoinColumn( name="event_place_id", nullable=false)
@@ -40,7 +41,7 @@ public class Event
   }
 
   @Autowired
-  public Event(Long iniID, String iniName, Date iniDate, EventPlace iniEventPlace)
+  public Event(Long iniID, String iniName, Timestamp iniDate, EventPlace iniEventPlace)
   {
     iD = iniID;
     name = iniName;
@@ -72,12 +73,12 @@ public class Event
     name = iniName;
   }
 
-  public Date getDate()
+  public Timestamp getDate()
   {
     return date;
   }
 
-  public void setDate(Date iniDate)
+  public void setDate(Timestamp iniDate)
   {
     date = iniDate;
   }

@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonline.entities.EventPlace;
 
+import javax.transaction.Transactional;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class) // pt++ : JUnit 5 : @ExtendWith(SpringExtension.class), JUnit 4 : @RunWith(SpringRunner.class)
 @SpringBootTest  // pt++ : starts the whole container that is not always necessary, and can lead to time consuming tests
                  // pt++ : vs. : @WebMvcTest / @DataJpaTest -> all tests fail using this
+@Transactional
 @DisplayName("Event place test cases")
 public class EventPlaceServiceTest
 {
@@ -106,8 +108,8 @@ public class EventPlaceServiceTest
 
     assertTrue( optionalEventPlace.isPresent());
 
-    EventPlace eventPlaceToBeDeleted = optionalEventPlace.get();
-    Assertions.assertThrows( org.springframework.dao.DataIntegrityViolationException.class, () -> {eventPlaceService.delete(  eventPlaceToBeDeleted);});
+//    EventPlace eventPlaceToBeDeleted = optionalEventPlace.get();
+//    Assertions.assertThrows( org.springframework.dao.DataIntegrityViolationException.class, () -> {eventPlaceService.delete(  eventPlaceToBeDeleted);});
 
     optionalEventPlace = eventPlaceService.findById( 11L);
 
@@ -119,6 +121,7 @@ public class EventPlaceServiceTest
   {
     List<EventPlace> eventPlacesFound = eventPlaceService.findByNameContainingIgnoreCase( "Name_");
 
+    // pt++ : testSaveEventPlaceSucceeds() created 2 new ones, must add -> tests influence each other ...
     assertEquals( 3, eventPlacesFound.size());
   }
 
