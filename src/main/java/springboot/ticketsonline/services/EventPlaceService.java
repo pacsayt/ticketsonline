@@ -1,5 +1,7 @@
 package springboot.ticketsonline.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.ticketsonline.entities.EventPlace;
@@ -24,6 +26,8 @@ import java.util.Optional;
 @Service
 public class EventPlaceService
 {
+  private static final Logger LOG = LoggerFactory.getLogger( EventPlaceService.class);
+
   @Autowired
   private EventPlaceRepository eventPlaceRepository;
 
@@ -39,6 +43,8 @@ public class EventPlaceService
 
   public Optional<EventPlace> findById( Long iD)
   {
+    LOG.info( "EventPlaceService::findAll(" + iD + ") ++++++++++++++++++++++++");
+
     Optional<EventPlace> eventPlaceOptional = eventPlaceRepository.findById( iD);
 
     return eventPlaceOptional;
@@ -46,6 +52,8 @@ public class EventPlaceService
 
   public List<EventPlace> findAll()
   {
+    LOG.info( "EventPlaceService::findAll() ++++++++++++++++++++++++");
+
     return eventPlaceRepository.findAll();
   }
 
