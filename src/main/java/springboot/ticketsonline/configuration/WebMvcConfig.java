@@ -20,11 +20,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebMvcConfig implements WebMvcConfigurer // pt++ : extends WebMvcConfigurerAdapter - not needed
 {                                                     // pt++ : as WebMvcConfigurer has default mehods from Java 8 on
   @Autowired
-  HandlerInterceptor yourInjectedInterceptor;
+//  HandlerInterceptor yourInjectedInterceptor; // pt++ : MessageHandlerInterceptor extends HandlerInterceptorAdapter implements AsyncHandlerInterceptor extends HandlerInterceptor
+  MessageHandlerInterceptor myInjectedInterceptor;
 
   @Override
-  public void addInterceptors(InterceptorRegistry registry)
+  public void addInterceptors( InterceptorRegistry registry)
   {
-    registry.addInterceptor( new MessageHandlerInterceptor());
+    registry.addInterceptor( myInjectedInterceptor);
   }
 }

@@ -3,6 +3,7 @@ package springboot.ticketsonline.configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -16,7 +17,8 @@ import java.util.Enumeration;
  * Introduction to Spring MVC HandlerInterceptor
  * https://www.baeldung.com/spring-mvc-handlerinterceptor
  */
-public class MessageHandlerInterceptor extends HandlerInterceptorAdapter // pt++ : implements AsyncHandlerInterceptor
+@Component
+public class MessageHandlerInterceptor extends HandlerInterceptorAdapter // pt++ : implements AsyncHandlerInterceptor extends HandlerInterceptor
 {
   private static Logger LOG = LoggerFactory.getLogger(MessageHandlerInterceptor.class);
 

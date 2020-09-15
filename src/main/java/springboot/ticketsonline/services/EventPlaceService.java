@@ -38,7 +38,11 @@ public class EventPlaceService
 
   public EventPlace save( EventPlace eventPlaceToSave)
   {
-    return eventPlaceRepository.save( eventPlaceToSave);
+    EventPlace eventPlace = eventPlaceRepository.save( eventPlaceToSave);
+
+    LOG.info( "EventPlaceService::save() : " + eventPlace + "++++++++++++++++++++++++");
+
+    return eventPlace;
   }
 
   public Optional<EventPlace> findById( Long iD)

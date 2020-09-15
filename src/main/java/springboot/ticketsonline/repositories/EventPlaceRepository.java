@@ -6,6 +6,10 @@ import springboot.ticketsonline.entities.EventPlace;
 
 import java.util.List;
 
+/**
+ * pt++ : Hibernate: save, persist, update, merge, saveOrUpdate
+ * pt++ : https://www.baeldung.com/hibernate-save-persist-update-merge-saveorupdate
+ */
 @Repository
 public interface EventPlaceRepository extends JpaRepository<EventPlace, Long>
 {
