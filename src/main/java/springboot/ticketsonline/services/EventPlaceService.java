@@ -47,7 +47,7 @@ public class EventPlaceService
 
   public Optional<EventPlace> findById( Long iD)
   {
-    LOG.info( "EventPlaceService::findAll(" + iD + ") ++++++++++++++++++++++++");
+    LOG.info( "EventPlaceService::findById(" + iD + ") ++++++++++++++++++++++++");
 
     Optional<EventPlace> eventPlaceOptional = eventPlaceRepository.findById( iD);
 

@@ -12,7 +12,6 @@ import springboot.ticketsonline.entities.Ticket;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +60,7 @@ public class BookedTicketServiceTest extends TestBase
     eventPlaceToSave = new EventPlace( 111L, "Name_55", 110); // (Long iniID, String iniName, Integer iniNoOfSeats)
     eventPlaceSaved = eventPlaceService.save( eventPlaceToSave);
 
-    assertTrue( 111L != eventPlaceSaved.getiD());
+    assertTrue( 111L != eventPlaceSaved.getId());
 
     Event eventToSave = new Event( 0L, "EventName_55", stringToDate( "2020-09-03 11:32:41.00"), eventPlaceSaved);
 

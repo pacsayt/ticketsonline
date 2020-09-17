@@ -1,19 +1,14 @@
 package springboot.ticketsonline.services;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonline.entities.EventPlace;
 
 import javax.transaction.Transactional;
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,11 +83,11 @@ public class EventPlaceServiceTest
 
     eventPlaceToSave = new EventPlace( 111L, "Name_1", 10); // (Long iniID, String iniName, Integer iniNoOfSeats)
     savedEventPlace = eventPlaceService.save( eventPlaceToSave); // pt++ : will overwrite iD with the value given by DB
-    System.out.println( "testSaveEventPlaceSucceeds() : savedEventPlace.iD=" + savedEventPlace.getiD());
+    System.out.println( "testSaveEventPlaceSucceeds() : savedEventPlace.iD=" + savedEventPlace.getId());
 
     eventPlaceToSave = new EventPlace( 222L, "Name_2", 20); // (Long iniID, String iniName, Integer iniNoOfSeats);
     savedEventPlace = eventPlaceService.save( eventPlaceToSave);
-    System.out.println( "testSaveEventPlaceSucceeds() : savedEventPlace.iD=" + savedEventPlace.getiD());
+    System.out.println( "testSaveEventPlaceSucceeds() : savedEventPlace.iD=" + savedEventPlace.getId());
 
     List<EventPlace> allEventPlaces = eventPlaceService.findAll();
 

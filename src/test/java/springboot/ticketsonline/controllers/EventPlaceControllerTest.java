@@ -16,16 +16,15 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.EventPlace;
 import springboot.ticketsonline.entities.EventPlaces;
 
 import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 /**
+ *  pt++ : it's a good idea to use WebClient.
+ *  pt++ : Moving forward, RestTemplate will be deprecated in future versions. pt++ " !!!
+ *
  *  pt++ : A wrapper class must be used if one wants to transfer more than one object.
  *  pt++ : if this is true for RestTemplate ONLY ???
  *  Get and Post Lists of Objects with RestTemplate
@@ -34,9 +33,8 @@ import java.util.Map;
  *  The Guide to RestTemplate
  *  https://www.baeldung.com/rest-template
  *
- *  it's a good idea to use WebClient.
- *  Moving forward, RestTemplate will be deprecated in future versions. pt++ " !!!
- *
+ *  Command line test :
+ *  http GET http://localhost:8080/eventplace/11
  */
 
 @ExtendWith(SpringExtension.class)
@@ -91,16 +89,17 @@ public class EventPlaceControllerTest
   // 5.1. The postForObject() API
   // https://www.baeldung.com/rest-template
   @Test
-  public void testPostForObject()
+  public void testPostForEntity()
   {
     EventPlace eventPlace = new EventPlace( 66L, "Name_66", 66);
 
     HttpEntity<EventPlace> httpEntity = new HttpEntity<>( eventPlace);
-    eventPlace = testRestTemplate.postForObject( "http://localhost:" + portNumber + "/eventplace", httpEntity, EventPlace.class);
+    ResponseEntity<EventPlace> eventPlaceResponseEntity;
+    eventPlaceResponseEntity = testRestTemplate.postForEntity( "http://localhost:" + portNumber + "/eventplace", httpEntity, EventPlace.class);
 
-    assertThat( eventPlace, notNullValue());
+    assertThat( eventPlaceResponseEntity, notNullValue());
 
-    assertThat( eventPlace.getiD(), is(6L));
+    assertThat( eventPlace.getId(), is(1L));
   }
 
   @Test

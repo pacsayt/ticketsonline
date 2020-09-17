@@ -35,12 +35,12 @@ public class EventPlace
     noOfSeats = iniNoOfSeats;
   }
 
-  public Long getiD()
+  public Long getId()
   {
     return iD;
   }
 
-  public void setiD(Long iniId)
+  public void setId(Long iniId)
   {
     iD = iniId;
   }
