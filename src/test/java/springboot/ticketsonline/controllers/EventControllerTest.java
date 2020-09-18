@@ -45,6 +45,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EventControllerTest                  // pt++ : -> @MockBean - for those not in injector and not under test
                                                   // pt++ : however, Spring Boot has to create a new application context for each single test
 {
+  // ^ ugy latszik, annyira lightweight, hogy az adatbazisba sem jatszodnak be a tesztadatok !
+
   @Autowired
   private MockMvc mockMvc;
 
