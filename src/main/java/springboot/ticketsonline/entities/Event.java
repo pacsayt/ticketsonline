@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 // import java.util.Date;
 
 /**
@@ -58,7 +59,7 @@ public class Event
     return iD;
   }
 
-  public void setiD(Long iniId)
+  public void setId(Long iniId)
   {
     iD = iniId;
   }
@@ -91,5 +92,32 @@ public class Event
   public void setEventPlace(EventPlace iniEventPlace)
   {
     eventPlace = iniEventPlace;
+  }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if ( this == o )
+    {
+      return true;
+    }
+
+    if ( o == null || getClass() != o.getClass() )
+    {
+      return false;
+    }
+
+    Event event = (Event) o;
+
+    return Objects.equals(iD, event.iD) &&
+            Objects.equals(name, event.name) &&
+            Objects.equals(date, event.date) &&
+            Objects.equals(eventPlace, event.eventPlace);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash(iD, name, date, eventPlace);
   }
 }

@@ -14,6 +14,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * pt++ : Stereotypes : @Component, @Service, @Repository, @Controller Difference
+ * Spring @Component, @Service, @Repository, @Controller Difference
+ */
 @Service
 public class BookedTicketService
 {
