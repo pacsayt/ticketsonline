@@ -38,15 +38,15 @@ public class EventPlaceController
   public ResponseEntity<Object> post( @RequestBody EventPlace eventPlace)
   {
     //Generate resource id
-    EventPlace eventPlaceAfterSave = eventPlaceService.save( eventPlace);
+    EventPlace eventPlaceSaved = eventPlaceService.save( eventPlace);
 
     // Create resource location : no idea what it is good for
 //    URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 //                                              .path("/{id}")
-//                                              .buildAndExpand( eventPlaceAfterSave.getId())
+//                                              .buildAndExpand( eventPlaceSaved.getId())
 //                                              .toUri();
 
-    Optional<EventPlace> optionalEventPlace = Optional.of( eventPlaceAfterSave);
+    Optional<EventPlace> optionalEventPlace = Optional.of( eventPlaceSaved);
 
     //Send location in response
     return ResponseEntity/*.created( location)*/.ok( optionalEventPlace); // pt++ : this works

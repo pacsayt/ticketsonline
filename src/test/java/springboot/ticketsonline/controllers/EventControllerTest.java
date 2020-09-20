@@ -150,7 +150,7 @@ public class EventControllerTest extends TestBase // pt++ : -> @MockBean - for t
   @Test()
   public void testPostEvent() throws Exception
   {
-    Event eventToBeSaved = new Event( null, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
+    Event eventToBeSaved = new Event( 111L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
     Event eventSaved = new Event( 1L, "EventName_11", stringToDate( "2020-09-03 11:32:41.00"), null);
 
     when( mockEventService.save( eventToBeSaved)).thenReturn( eventSaved);
@@ -162,7 +162,7 @@ public class EventControllerTest extends TestBase // pt++ : -> @MockBean - for t
            .andExpect( ResponseBodyMatchers.responseBody().containsObjectAsJson( eventSaved, Event.class));
 
     verify( mockEventService, times( 1)).save( any());
-    verify( mockEventService).save( any( Event.class)).getId().compareTo( 1L); // pt++ : no idea what it is in this form ...
+    verify( mockEventService).save( any( Event.class)).getName().compareTo( "EventName_11"); // pt++ : no idea what it is in this form ...
   }
 
   @Test
