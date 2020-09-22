@@ -1,20 +1,17 @@
 package springboot.ticketsonline.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.assertj.core.internal.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.Events;
-import springboot.ticketsonline.repositories.EventRepository;
 import springboot.ticketsonline.services.EventService;
 import springboot.ticketsonline.services.TestBase;
 
@@ -27,15 +24,15 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static springboot.ticketsonline.controllers.ResponseBodyMatchers.responseBody;
 
 /**
+ * Testing MVC Web Controllers with Spring Boot and @WebMvcTest
+ * https://reflectoring.io/spring-boot-web-controller-test/
+ *
  * Perform test here using MockWebMvc for a change :
  * https://dimitr.im/testing-your-rest-controllers-and-clients-with-spring
  *
  * https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-rest-api/
- *
- * https://reflectoring.io/spring-boot-web-controller-test/
  *
  * Command line test :
  * http GET http://localhost:8080/event/11
@@ -109,7 +106,7 @@ public class EventControllerTest extends TestBase // pt++ : -> @MockBean - for t
 
     mockMvc.perform( get("/event/{id}", 11).contentType( "application/json"))
            .andExpect( status().isOk())
-           .andExpect( ResponseBodyMatchers.responseBody().containsObjectAsJson( eventExpected, Event.class));
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( eventExpected, Event.class));
   }
 
   @Test
@@ -122,7 +119,7 @@ public class EventControllerTest extends TestBase // pt++ : -> @MockBean - for t
 
     mockMvc.perform( get("/event/{id}", 11).contentType( "application/json"))
             .andExpect( status().isOk())
-            .andExpect( ResponseBodyMatchers.responseBody().containsObjectAsJson( eventExpected, Event.class));
+            .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( eventExpected, Event.class));
 
     ArgumentCaptor<Long> eventIdArgumentCaptor = ArgumentCaptor.forClass( Long.class);
 
@@ -144,7 +141,7 @@ public class EventControllerTest extends TestBase // pt++ : -> @MockBean - for t
 
     mockMvc.perform( get( "/event").contentType( "application/json"))
            .andExpect( status().isOk())
-           .andExpect( ResponseBodyMatchers.responseBody().containsObjectAsJson( events, Events.class));
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( events, Events.class));
   }
 
   @Test()
@@ -159,7 +156,7 @@ public class EventControllerTest extends TestBase // pt++ : -> @MockBean - for t
                      contentType( "application/json").
                      content(objectMapper.writeValueAsString( eventToBeSaved) )) // pt++ : @RequestBody
            .andExpect( status().isOk())
-           .andExpect( ResponseBodyMatchers.responseBody().containsObjectAsJson( eventSaved, Event.class));
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( eventSaved, Event.class));
 
     verify( mockEventService, times( 1)).save( any());
     verify( mockEventService).save( any( Event.class)).getName().compareTo( "EventName_11"); // pt++ : no idea what it is in this form ...

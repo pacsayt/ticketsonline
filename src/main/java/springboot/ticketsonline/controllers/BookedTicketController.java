@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping( path="bookedtickets")
+@RequestMapping( path="bookedticket")
 public class BookedTicketController
 {
   @Autowired

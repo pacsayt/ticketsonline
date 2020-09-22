@@ -2,6 +2,7 @@ package springboot.ticketsonline.entities;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Objects;
 
 @Entity
 @Table( name = "ticket")
@@ -72,5 +73,32 @@ public class Ticket
   public void setTicketPrice(Integer iniTicketPrice)
   {
     ticketPrice = iniTicketPrice;
+  }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if ( this == o )
+    {
+      return true;
+    }
+
+    if ( o == null || getClass() != o.getClass() )
+    {
+      return false;
+    }
+
+    Ticket ticket = (Ticket) o;
+
+    return Objects.equals(iD, ticket.iD) &&
+            Objects.equals(seatNo, ticket.seatNo) &&
+            Objects.equals(event, ticket.event) &&
+            Objects.equals(ticketPrice, ticket.ticketPrice);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash(iD, seatNo, event, ticketPrice);
   }
 }

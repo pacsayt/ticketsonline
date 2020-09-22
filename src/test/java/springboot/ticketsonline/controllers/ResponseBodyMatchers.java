@@ -22,13 +22,13 @@ public class ResponseBodyMatchers
   public <T> ResultMatcher containsObjectAsJson( Object expectedObject, Class<T> targetClass)
   {
     return mvcResult -> {
-                          String json = mvcResult.getResponse().getContentAsString();
-                          T actualObject = objectMapper.readValue( json, targetClass);
+                          String responseContentAsJson = mvcResult.getResponse().getContentAsString();
+                          T actualObject = objectMapper.readValue( responseContentAsJson, targetClass);
                           assertThat( actualObject).isEqualToComparingFieldByField( expectedObject);
                         };
   }
 
-  static ResponseBodyMatchers responseBody()
+  static ResponseBodyMatchers createResponseBodyMatcher()
   {
     return new ResponseBodyMatchers();
   }

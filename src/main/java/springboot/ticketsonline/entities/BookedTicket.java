@@ -1,6 +1,7 @@
 package springboot.ticketsonline.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -44,5 +45,27 @@ public class BookedTicket
   public void setiD( Long iniId)
   {
     iD = iniId;
+  }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if ( this == o )
+    {
+      return true;
+    }
+    if ( o == null || getClass() != o.getClass() )
+    {
+      return false;
+    }
+    BookedTicket that = (BookedTicket) o;
+    return Objects.equals(iD, that.iD) &&
+            Objects.equals(bookedTicket, that.bookedTicket);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash(iD, bookedTicket);
   }
 }
