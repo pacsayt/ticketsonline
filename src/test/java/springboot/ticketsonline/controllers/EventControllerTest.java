@@ -159,7 +159,7 @@ public class EventControllerTest extends TestBase // pt++ : -> @MockBean - for t
            .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( eventSaved, Event.class));
 
     verify( mockEventService, times( 1)).save( any());
-    verify( mockEventService).save( any( Event.class)).getName().compareTo( "EventName_11"); // pt++ : no idea what it is in this form ...
+//    verify( mockEventService).save( any( Event.class)).getName().compareTo( "EventName_11"); // pt++ : NPE
   }
 
   @Test

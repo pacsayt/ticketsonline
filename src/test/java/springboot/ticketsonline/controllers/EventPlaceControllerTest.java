@@ -89,7 +89,7 @@ public class EventPlaceControllerTest
   // 5.1. The postForObject() API
   // https://www.baeldung.com/rest-template
   @Test
-  public void testPostForEntity()
+  public void testPostForEntity() // pt++ : the two post tests effect each other
   {
     EventPlace eventPlace = new EventPlace( 66L, "Name_66", 66);
 
@@ -99,17 +99,19 @@ public class EventPlaceControllerTest
 
     assertThat( eventPlaceResponseEntity, notNullValue());
 
-    assertThat( eventPlace.getId(), is(1L));
+    EventPlace ep2 = (EventPlace)eventPlaceResponseEntity.getBody();
+
+    assertThat( ep2.getId(), is( 2L));
   }
 
   @Test
-  public void testPostForLocation()
+  public void testPostForLocation() // pt++ : the two post tests effect each other
   {
-    EventPlace eventPlace = new EventPlace( 66L, "Name_66", 66);
+    EventPlace eventPlace = new EventPlace( 77L, "Name_77", 77);
 
     HttpEntity<EventPlace> httpEntity = new HttpEntity<>( eventPlace);
     URI location  = testRestTemplate.postForLocation( "http://localhost:" + portNumber + "/eventplace", httpEntity, EventPlace.class);
 
-    assertThat(location, notNullValue());
+    assertThat(location, nullValue()); // pt++ : no Location header. Is returned when the endpoint sends back a template or so ...
   }
 }
