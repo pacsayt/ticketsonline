@@ -14,7 +14,7 @@ import java.util.Objects;
  * - default constructor
  * - contain an ID
  * - getXXX()/setXXX() - JavaBean style
- * - central feature of Hibernate, proxies, depends upon the persistent class being either non-final,
+ * - central feature of Hibernate, proxies, require the persistent class being either non-final,
  *   or the implementation of an interface that declares all public methods.
  * - no EJB  
  */
