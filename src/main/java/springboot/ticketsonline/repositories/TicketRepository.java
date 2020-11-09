@@ -7,9 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.Ticket;
 
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.SqlResultSetMapping;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +33,9 @@ import java.util.Optional;
  *
  * JpaRepository< , > -> CrudRepository< , >
  */
+
+// https://www.baeldung.com/jpa-sql-resultset-mapping
+@Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long>
 {
   List<Ticket> findByTicketPrice( Integer ticketPrice);
@@ -44,14 +52,19 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>
 
   // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
   // pt++ : THESE MAINLY FOR THE TicketRepositoryTest, THEY WON'T BE USED PROBABLY ELSEWHERE ---------------------------------------------------------------------------
+  //
+  // https://www.objectdb.com/java/jpa/query/jpql/select :
+  // Because construction of managed entity objects has some overhead, queries that return non entity objects, as the two queries above, are usually more efficient.
+  // Such queries are useful mainly for displaying information efficiently
+  // (pt++ : ==not associated with an EntityManager and changes to them when a transaction is active are not propagated to the database).
+  // They are less productive with operations that update or delete entity objects, in which managed entity objects are needed.
   // -------------------------------------------------------------------------------------------------------------------------------------------------------------------
   @Query( value="SELECT t FROM Ticket t WHERE t.id=?1", nativeQuery = false) // pt++ : you can omit SELECT ... : "FROM ticket t WHERE t.id=?1"
   Ticket fetchById( Long id);
 
   // pt++ : in case of READ ONLY access, this is more effective by avoiding overhead associated with managed objects
-  @Query( value="SELECT new Ticket( t.id, t.seatNo, null, t.ticketPrice) FROM Ticket t WHERE t.id=?1", nativeQuery = false) // pt++ : you can omit SELECT ... : "FROM ticket t WHERE t.id=?1"
-  Ticket fetchByIdNotManaged( Long id);
-
+//  @Query( value="SELECT new Ticket( t.id, t.seatNo, null, t.ticketPrice) FROM Ticket t WHERE t.id=?1", nativeQuery = false) // pt++ : you can omit SELECT ... : "FROM ticket t WHERE t.id=?1"
+//  Ticket fetchByIdNotManaged( Long id);
 
   @Query( "SELECT t FROM Ticket t WHERE t.ticketPrice > ?1")
   List<Ticket> fetchTicketsByMinTicketPrice( Integer minTicketPrice, Sort sort);
@@ -105,17 +118,6 @@ List<Author> findByFirstName(String firstName, Sort sort);
             + " "
             + a.getLastName());
   }
-
-
-  @SqlResultSetMapping(
-          name = "AuthorValueMapping",
-          classes = @ConstructorResult(
-                  targetClass = AuthorValue.class,
-                  columns = {
-                          @ColumnResult(name = "id", type = Long.class),
-                          @ColumnResult(name = "firstname"),
-                          @ColumnResult(name = "lastname"),
-                          @ColumnResult(name = "numBooks", type = Long.class)}))
 
   @SqlResultSetMapping( name = "AuthorValueMapping",
           classes = @ConstructorResult(

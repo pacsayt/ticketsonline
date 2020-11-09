@@ -4,6 +4,22 @@ import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
 
+
+@SqlResultSetMapping( name="EventIdResult", columns={@ColumnResult(name="event_id", type=Long.class)})
+@SqlResultSetMapping( name="SeatNoTicketPriceEventIdResult",
+                      classes={ @ConstructorResult( targetClass=springboot.ticketsonline.entities.TicketWithIds.class,
+                                                    columns={ @ColumnResult(name="ticket_id", type=Long.class),
+                                                              @ColumnResult(name="seat_no", type=Integer.class),
+                                                              @ColumnResult(name="ticket_price", type=Integer.class),
+                                                              @ColumnResult(name="event_id", type=Long.class)})})
+
+@NamedNativeQueries({@NamedNativeQuery( name = "EventIdWithId",
+                                        query = "SELECT event_id FROM ticket WHERE ticket_id = 10",
+                                        resultSetMapping = "EventIdResult"), // pt++ : or : resultClass=Long.class
+                     @NamedNativeQuery( name = "SeatNoTicketPriceEventIdWithId",
+                                        query = "SELECT ticket_id, seat_no, ticket_price, event_id FROM ticket WHERE ticket_id = 10",
+                                        resultSetMapping = "SeatNoTicketPriceEventIdResult")})
+
 @Entity
 @Table( name = "ticket")
 public class Ticket

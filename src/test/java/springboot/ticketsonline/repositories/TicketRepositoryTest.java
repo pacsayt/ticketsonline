@@ -11,12 +11,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.EventPlace;
 import springboot.ticketsonline.entities.Ticket;
+import springboot.ticketsonline.entities.TicketWithIds;
 import springboot.ticketsonline.services.TestBase;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Tuple;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -35,6 +33,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName( "TicketRepository test cases")
 public class TicketRepositoryTest extends TestBase
 {
+  @PersistenceContext
+  private EntityManager entityManager;
+
   @Autowired
   private TicketRepository ticketRepository;
 
@@ -163,7 +164,39 @@ public class TicketRepositoryTest extends TestBase
   }
 
   @Test
-          public void testSelectingMultipleValues()
+  public void testSelectingMultipleValues1()
+  {
+//    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistenceUnitName"); pt++ : specified usually in persistence.xml
+//    EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+    TypedQuery<Object[]> query = entityManager.createQuery( "SELECT t.seatNo, t.ticketPrice FROM Ticket AS t", Object[].class);
+
+    List<Object[]> results = query.getResultList();
+
+    assertEquals( 6, results.size());
+
+    assertEquals( 2, results.get( 0)[0]);
+    assertEquals( 100, results.get( 0)[1]);
+  }
+
+  @Test
+  public void testColumnResult()
+  {
+    List<Long> employeeIds = entityManager.createNamedQuery("EventIdWithId").getResultList();
+    assertEquals(1, employeeIds.size());
+  }
+
+  @Test
+  public void testConstructorResult()
+  {
+    List<TicketWithIds> ticketWithIds = entityManager.createNamedQuery("SeatNoTicketPriceEventIdWithId", TicketWithIds.class).getResultList();
+    assertEquals(1, ticketWithIds.size());
+  }
+
+
+/*
+  @Test
+  public void testSelectingMultipleValues()
   {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory( "persistenceUnitName");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -185,5 +218,5 @@ public class TicketRepositoryTest extends TestBase
       log.info(authorName.get( "seatNo") + " " + authorName.get( "ticketPrice"));
     }
   }
-
+*/
 }
