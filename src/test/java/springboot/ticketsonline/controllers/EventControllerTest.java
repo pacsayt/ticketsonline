@@ -52,12 +52,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class) // pt++ :  As of Spring Boot 2.1, we no longer need to load the SpringExtension
                                    // because it's included as a meta annotation in the Spring Boot test
-                                   //  annotations like @DataJpaTest, @WebMvcTest, and @SpringBootTest.
+                                   // annotations like @DataJpaTest, @WebMvcTest, and @SpringBootTest.
 @WebMvcTest( controllers = EventController.class) // pt++ : controllers - all other controllers will be omitted from injector
 public class EventControllerTest extends TestBase // pt++ : -> @MockBean - for those not in injector and not under test
                                                   // pt++ : however, Spring Boot has to create a new application context for each single test
 {
-  // ^ ugy latszik, annyira lightweight, hogy az adatbazisba sem jatszodnak be a tesztadatok !
+  // ^ seems, it is so much lightweight that test data wont be inserted into tha database
 
   @Autowired
   private MockMvc mockMvc;

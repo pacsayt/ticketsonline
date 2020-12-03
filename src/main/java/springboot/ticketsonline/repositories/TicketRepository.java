@@ -1,5 +1,6 @@
 package springboot.ticketsonline.repositories;
 
+import org.hibernate.Criteria;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -76,7 +77,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long>
   List<Ticket> fetchTicketsByEventName( String eventName);
 
   @Query( "SELECT t FROM Ticket t JOIN t.event e WHERE e.name = :eventName")
-  List<Ticket> fetchTicketsByEventNameParam( @Param( "eventName") String eventName);
+  List<Ticket> fetchTicketsByEventNameParam(@Param( "eventName") String eventName);
 
   // pt++ : examples :
   // SELECT a FROM Author a WHERE (SELECT count(b) FROM Book b WHERE a MEMBER OF b.authors ) > 1

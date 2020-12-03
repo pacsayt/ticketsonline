@@ -47,29 +47,29 @@ public class TicketRepositoryTest extends TestBase
 
     List<Ticket> ticketsFound = ticketRepository.findByEvent(event);
 
-    assertEquals(1, ticketsFound.size());
+    assertEquals(4, ticketsFound.size());
 
     Ticket ticketEntityFound = ticketsFound.get(0);
 
-    assertEquals(11L, ticketEntityFound.getiD());
+    assertEquals(10L, ticketEntityFound.getiD());
   }
 
   @Test
   public void testFindByTicketPrice()
   {
-    List<Ticket> ticketEntiesFound = ticketRepository.findByTicketPrice(11);
+    List<Ticket> ticketEntiesFound = ticketRepository.findByTicketPrice(113);
 
-    assertEquals(4, ticketEntiesFound.size());
+    assertEquals(1, ticketEntiesFound.size());
 
     Ticket ticketEntityFound = ticketEntiesFound.get(0);
 
-    assertEquals(10L, ticketEntityFound.getiD());
+    assertEquals(13L, ticketEntityFound.getiD());
   }
 
   @Test
   public void testFindByTicketPriceLessThan()
   {
-    List<Ticket> ticketEntiesFound = ticketRepository.findByTicketPriceLessThan(22);
+    List<Ticket> ticketEntiesFound = ticketRepository.findByTicketPriceLessThan( 115);
 
     assertEquals(4, ticketEntiesFound.size());
 
@@ -79,14 +79,15 @@ public class TicketRepositoryTest extends TestBase
   }
 
   @Test
-  public void testFindByEvent()
+  public void testFindByEvent() throws ParseException
   {
-    Event event = new Event();
+    Event event = new Event(11L, "EventName_11", stringToDate("2020-09-03 11:32:41.00"), null);
 
     List<Ticket> ticketEntiesFound = ticketRepository.findByEvent(event);
 
-    assertEquals(1, ticketEntiesFound.size());
+    assertEquals(4, ticketEntiesFound.size());
 
+    Optional<Ticket> ticket = ticketEntiesFound.stream().findFirst( t -> t.getiD() == 11L );
     Ticket ticketEntityFound = ticketEntiesFound.get(0);
 
     assertEquals(11L, ticketEntityFound.getiD());
@@ -98,7 +99,7 @@ public class TicketRepositoryTest extends TestBase
     EventPlace eventPlace = new EventPlace(11L, "Name_11", 11);
     Event event = new Event(11L, "EventName_11", stringToDate("2020-09-03 11:32:41.00"), eventPlace);
 
-    List<Ticket> ticketEntiesFound = ticketRepository.findByEventAndTicketPrice(event, 11);
+    List<Ticket> ticketEntiesFound = ticketRepository.findByEventAndTicketPrice( event, 112);
 
     assertEquals(1, ticketEntiesFound.size());
 
