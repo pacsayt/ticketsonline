@@ -21,6 +21,7 @@ import javax.persistence.criteria.Root;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -87,10 +88,11 @@ public class TicketRepositoryTest extends TestBase
 
     assertEquals(4, ticketEntiesFound.size());
 
-    Optional<Ticket> ticket = ticketEntiesFound.stream().findFirst( t -> t.getiD() == 11L );
-    Ticket ticketEntityFound = ticketEntiesFound.get(0);
+    Optional<Ticket> ticket = ticketEntiesFound.stream().filter( t -> t.getiD() == 11L).findFirst();
 
-    assertEquals(11L, ticketEntityFound.getiD());
+    assertTrue( ticket.isPresent());
+
+    assertEquals(11L, ticket.get().getiD());
   }
 
   @Test
