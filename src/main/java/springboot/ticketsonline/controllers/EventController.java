@@ -1,6 +1,5 @@
 package springboot.ticketsonline.controllers;
 
-import org.apache.kafka.common.message.LeaderAndIsrRequestData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.ticketsonline.entities.Event;
 import springboot.ticketsonline.entities.Events;
-import springboot.ticketsonline.services.EventPlaceService;
 import springboot.ticketsonline.services.EventService;
 
-import java.util.List;
 import java.util.Optional;
+
+/**
+ * http://localhost:8080/event/
+ */
 
 @RestController
 @RequestMapping( path="event")

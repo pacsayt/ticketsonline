@@ -7,8 +7,13 @@ import springboot.ticketsonline.entities.BookedTicket;
 import springboot.ticketsonline.entities.BookedTickets;
 import springboot.ticketsonline.services.BookedTicketService;
 
-import java.util.List;
 import java.util.Optional;
+
+/**
+ * http://localhost:8080/bookedticket/
+ * http://localhost:8080/bookedticket/22
+ * http://localhost:8080/bookedticket/33
+ */
 
 @RestController
 @RequestMapping( path="bookedticket")

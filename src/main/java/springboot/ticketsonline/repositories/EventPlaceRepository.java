@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface EventPlaceRepository extends JpaRepository<EventPlace, Long>
 {
+  List<EventPlace> findByName(String name);
+
   List<EventPlace> findByNameContainingIgnoreCase(String name);
 
   List<EventPlace> findFirst2ByNameContainingIgnoreCase(String name);

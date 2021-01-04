@@ -1,6 +1,7 @@
 package springboot.ticketsonline.controllers;
 
 import org.hamcrest.CoreMatchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +92,7 @@ public class EventPlaceControllerTest
   @Test
   public void testPostForEntity() // pt++ : the two post tests effect each other
   {
-    EventPlace eventPlace = new EventPlace( 66L, "Name_66", 66);
+    EventPlace eventPlace = new EventPlace( 66L, "XName_66", 66);
 
     HttpEntity<EventPlace> httpEntity = new HttpEntity<>( eventPlace);
     ResponseEntity<EventPlace> eventPlaceResponseEntity;
@@ -107,7 +108,7 @@ public class EventPlaceControllerTest
   @Test
   public void testPostForLocation() // pt++ : the two post tests effect each other
   {
-    EventPlace eventPlace = new EventPlace( 77L, "Name_77", 77);
+    EventPlace eventPlace = new EventPlace( 77L, "XName_77", 77);
 
     HttpEntity<EventPlace> httpEntity = new HttpEntity<>( eventPlace);
     URI location  = testRestTemplate.postForLocation( "http://localhost:" + portNumber + "/eventplace", httpEntity, EventPlace.class);

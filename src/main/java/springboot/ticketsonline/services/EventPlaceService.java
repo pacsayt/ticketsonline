@@ -85,4 +85,9 @@ public class EventPlaceService
   {
     return eventPlaceRepository.getOne( iD);
   }
+
+  public List<EventPlace> findByName( String name)
+  {
+    return eventPlaceRepository.findByName( name);
+  }
 }

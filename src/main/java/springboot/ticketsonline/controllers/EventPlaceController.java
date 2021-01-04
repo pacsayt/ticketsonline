@@ -13,6 +13,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * http://localhost:8080/eventplace
+ */
+
 @RestController                     // pt++ : you cannot specify root path here (it seems)
 @RequestMapping( path="eventplace") // pt++ : root path must be specified separately
 public class EventPlaceController

@@ -89,11 +89,13 @@ public class EventPlaceServiceTest
     savedEventPlace = eventPlaceService.save( eventPlaceToSave);
     System.out.println( "testSaveEventPlaceSucceeds() : savedEventPlace.iD=" + savedEventPlace.getId());
 
-    List<EventPlace> allEventPlaces = eventPlaceService.findAll();
+    List<EventPlace> eventPlace1 = eventPlaceService.findByName( "Name_1");
 
-    System.out.println( "testSaveEventPlaceSucceeds() : allEventPlaces=" + Arrays.toString( allEventPlaces.toArray()));
+    assertEquals( 1, eventPlace1.size(), " - Check if Name_1 has been saved.");
 
-    assertEquals( 5, allEventPlaces.size(), " - Check if all of the two have been saved. # have been inserted by import.sql.");
+    List<EventPlace> eventPlace2 = eventPlaceService.findByName( "Name_2");
+
+    assertEquals( 1, eventPlace2.size(), " - Check if Name_2 has been saved.");
   }
 
   @Test()

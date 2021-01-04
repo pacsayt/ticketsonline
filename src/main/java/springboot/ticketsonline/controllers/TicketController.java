@@ -9,6 +9,11 @@ import springboot.ticketsonline.services.TicketService;
 
 import java.util.Optional;
 
+/**
+ * http://localhost:8080/ticket/
+ * http://localhost:8080/ticket/11
+ */
+
 @RestController
 @RequestMapping( path="ticket")
 public class TicketController
