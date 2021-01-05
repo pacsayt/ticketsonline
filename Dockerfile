@@ -1,8 +1,8 @@
 # pt++ : docker run -p 8761:8761 --name ticketsonline
 # docker run -d -p 8080:8080 --name ticketsonline pacsayt/icketsonline -jar
 FROM openjdk:13-jdk-alpine
-# /tmp - is in the host's file system
-# VOLUME /tmp
+# /var/tmp - is in the host's file system
+VOLUME /var/tmp
 # /usr/src/ticketsonline ???
 WORKDIR /opt/ticketsonline
 # EXPOSE 8080 ???

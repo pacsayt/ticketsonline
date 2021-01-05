@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!--
+         Logging in Spring Boot : https://www.baeldung.com/spring-boot-logging
+
+         What is the difference between /tmp and /var/tmp ?
+         /tmp is meant as fast (possibly small) storage with a short lifetime.
+              Many systems clean /tmp very fast - on some systems it is even mounted as RAM-disk.
+         /var/tmp is normally located on a physical disk, is larger and can hold temporary files for a longer time.
+              Some systems also clean /var/tmp, but less often.
+         https://unix.stackexchange.com/questions/30489/what-is-the-difference-between-tmp-and-var-tmp
+     -->
+    <property name="LOG_DIR" value="/var/tmp" />
+    <property name="APPLICATION_NAME" value="TicketsOnline" />
+
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="RollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${APPLICATION_NAME}.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily and when the file reaches 1 MegaBytes -->
+            <fileNamePattern>${LOG_DIR}/archived/${APPLICATION_NAME}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <!-- LOG everything at INFO level -->
+    <root level="info">
+        <appender-ref ref="RollingFileAppender" />
+        <appender-ref ref="ConsoleAppender" />
+    </root>
+
+    <!-- LOG "com.baeldung*" at TRACE level -->
+    <logger name="springboot.ticketsonline" level="trace" additivity="false">
+        <appender-ref ref="RollingFileAppender" />
+        <appender-ref ref="ConsoleAppender" />
+    </logger>
+
+</configuration>

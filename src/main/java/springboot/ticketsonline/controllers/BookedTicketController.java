@@ -14,7 +14,6 @@ import java.util.Optional;
  * http://localhost:8080/bookedticket/22
  * http://localhost:8080/bookedticket/33
  */
-
 @RestController
 @RequestMapping( path="bookedticket")
 public class BookedTicketController

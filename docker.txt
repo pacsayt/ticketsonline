@@ -1,0 +1,10 @@
+docker build -t pacsayt/ticketsonline .
+docker run -d -p 8080:8080 --name ticketsonline --volume=/var/tmp pacsayt/ticketsonline
+
+VOLUME /tmp               <<<<< ez a konyvtar a host filerendszerere mutat. Na igen, de nem a host /tmp-jere am !
+> docker volume ls
+DRIVER    VOLUME NAME
+local     5d8...266
+>sudo ls -l /var/lib/docker/volumes/5d8...266/_data/
+-rw-r--r-- 1 root root 4437 jan    5 16:07 TicketsOnline.log <<<<< pl : VOLUME /var/tmp, ha a prg /var/tmp/TicketsOnline.log-be ir
+
