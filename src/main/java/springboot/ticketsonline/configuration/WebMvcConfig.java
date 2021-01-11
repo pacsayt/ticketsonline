@@ -1,6 +1,7 @@
 package springboot.ticketsonline.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 
  * https://www.baeldung.com/spring-dispatcherservlet
  */
+// @SpringBootConfiguration pt++ : https://www.baeldung.com/spring-boot-interview-questions
 @Configuration
 @Component
 public class WebMvcConfig implements WebMvcConfigurer // pt++ : extends WebMvcConfigurerAdapter - not needed

@@ -54,13 +54,16 @@ public class BookedTicket
     {
       return true;
     }
+
     if ( o == null || getClass() != o.getClass() )
     {
       return false;
     }
+
     BookedTicket that = (BookedTicket) o;
+
     return Objects.equals(iD, that.iD) &&
-            Objects.equals(bookedTicket, that.bookedTicket);
+           Objects.equals(bookedTicket, that.bookedTicket);
   }
 
   @Override
