@@ -4,7 +4,10 @@ import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
 
-
+/**
+ * Hibernate Named Query
+ * https://www.baeldung.com/hibernate-named-query
+ */
 @SqlResultSetMapping( name="EventIdResult", columns={@ColumnResult(name="event_id", type=Long.class)})
 @SqlResultSetMapping( name="SeatNoTicketPriceEventIdResult",
                       classes={ @ConstructorResult( targetClass=springboot.ticketsonline.entities.TicketWithIds.class,

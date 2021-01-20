@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * pt++ : Stereotypes : @Component, @Service, @Repository, @Controller Difference
+ * pt++ : Stereotypes : @Component, @Service, @Repository, @Controller
  * Spring @Component, @Service, @Repository, @Controller Difference
  */
 @Service

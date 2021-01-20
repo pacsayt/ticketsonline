@@ -24,7 +24,7 @@ public class EventController
   @Autowired
   private EventService eventService;
 
-  @GetMapping
+  @GetMapping( produces = "application/json")
   public Events getAll()
   {
     LOG.info( "EventController::getAll() +++++++++++++++++++++++++++++++");

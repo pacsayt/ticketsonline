@@ -24,7 +24,7 @@ public class EventPlaceController
   @Autowired
   private EventPlaceService eventPlaceService;
 
-  @GetMapping()
+  @GetMapping( produces = "application/json")
   public EventPlaces getAll()
   {
     return new EventPlaces( eventPlaceService.findAll());

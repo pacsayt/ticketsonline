@@ -21,7 +21,7 @@ public class BookedTicketController
   @Autowired
   private BookedTicketService bookedTicketService;
 
-  @GetMapping
+  @GetMapping( produces = "application/json")
   public BookedTickets getAll()
   {
     return new BookedTickets( bookedTicketService.findAll());

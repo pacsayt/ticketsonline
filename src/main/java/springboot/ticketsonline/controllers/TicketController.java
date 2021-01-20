@@ -21,7 +21,7 @@ public class TicketController
   @Autowired
   private TicketService ticketService;
 
-  @GetMapping
+  @GetMapping( produces = "application/json")
   public Tickets getAll()
   {
     return new Tickets( ticketService.findAll());
