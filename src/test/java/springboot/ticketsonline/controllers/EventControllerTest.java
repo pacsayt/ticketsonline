@@ -118,8 +118,8 @@ public class EventControllerTest extends TestBase // pt++ : -> @MockBean - for t
     when( mockEventService.findById( 11L)).thenReturn( optionalEvent);
 
     mockMvc.perform( get("/event/{id}", 11).contentType( "application/json"))
-            .andExpect( status().isOk())
-            .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( eventExpected, Event.class));
+           .andExpect( status().isOk())
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( eventExpected, Event.class));
 
     ArgumentCaptor<Long> eventIdArgumentCaptor = ArgumentCaptor.forClass( Long.class);
 

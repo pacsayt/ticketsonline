@@ -23,9 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@SpringBootTest
+@SpringBootTest // pt++ : fails without this (but this loads the whole application context ~ normal execution, resource intensive)
 // @DataJpaTest // pt++ : TicketEntity is not a managed object (or so) when using this
-@ExtendWith( SpringExtension.class)
+//@ExtendWith( SpringExtension.class) pt++ : not needed
 @DisplayName( "TicketRepository test cases")
 public class TicketRepositoryTest extends TestBase
 {

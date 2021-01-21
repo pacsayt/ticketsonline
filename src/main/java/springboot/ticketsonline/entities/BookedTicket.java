@@ -10,10 +10,12 @@ public class BookedTicket
 {
   @Id
   @GeneratedValue( strategy = GenerationType.AUTO, generator = "") // pt++ : both default values, just to show them ...
+                                                                   // vs. @SequenceGenerator() using DB sequence
   @Column(name = "bookedticket_id") // pt++ : just to show it ...
   private Long iD;
 
   @OneToOne( targetEntity = Ticket.class) // pt++ : fetch = FetchType.EAGER - default value
+                                          //        fetch = FetchType.LAZY  -
 //  @Column(name = "booked_ticket")
   private Ticket bookedTicket;
 

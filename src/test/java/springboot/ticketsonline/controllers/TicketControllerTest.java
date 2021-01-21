@@ -27,7 +27,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
+
+// @ExtendWith(SpringExtension.class) "As of Spring Boot 2.1, we no longer need to load the SpringExtension"
+// see EventControllerTest
 @WebMvcTest( controllers = TicketController.class)
 public class TicketControllerTest extends TestBase
 {

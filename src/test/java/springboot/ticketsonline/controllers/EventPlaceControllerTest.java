@@ -38,7 +38,7 @@ import java.net.URI;
  *  http GET http://localhost:8080/eventplace/11
  */
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class) // can be replaced with : @WebMvcTest( controllers = EventPlaceController.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // pt++ : @WebMvcTest
 public class EventPlaceControllerTest
 {

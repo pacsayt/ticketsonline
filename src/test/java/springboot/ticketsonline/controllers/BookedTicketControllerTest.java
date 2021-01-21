@@ -24,7 +24,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.web.servlet.function.RequestPredicates.contentType;
 
-@ExtendWith(SpringExtension.class)
+//@ExtendWith(SpringExtension.class) "As of Spring Boot 2.1, we no longer need to load the SpringExtension"
+// see EventControllerTest
 @WebMvcTest( controllers = BookedTicketController.class)
 public class BookedTicketControllerTest
 {
@@ -70,8 +71,8 @@ public class BookedTicketControllerTest
 
     mockMvc.perform(  get( "/bookedticket").
                       contentType( MediaType.APPLICATION_JSON))
-            .andExpect( status().isOk())
-            .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( bookedTickets, BookedTickets.class));
+           .andExpect( status().isOk())
+           .andExpect( ResponseBodyMatchers.createResponseBodyMatcher().containsObjectAsJson( bookedTickets, BookedTickets.class));
 
     verify(mockBookedTicketService, times( 1)).findAll();
   }
